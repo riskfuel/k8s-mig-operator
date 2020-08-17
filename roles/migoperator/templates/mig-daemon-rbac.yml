@@ -1,4 +1,22 @@
 ---
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: k8s-mig-operator-psp
+  namespace: default
+spec:
+  privileged: true
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  runAsUser:
+    rule: RunAsAny
+  fsGroup:
+    rule: RunAsAny
+  volumes:
+  - '*'
+---
 # service account
 apiVersion: v1
 kind: ServiceAccount
@@ -15,9 +33,13 @@ rules:
 - apiGroups: ["operators.riskfuel.com"]
   resources: 
     - migoperators
+    - podsecuritypolicies
   verbs:
+    - use
     - get
     - list
+  resourceNames:
+  - psp:k8s-mig-operator-psp
 ---
 # cluster role binding
 apiVersion: rbac.authorization.k8s.io/v1
