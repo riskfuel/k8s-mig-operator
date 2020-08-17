@@ -1,0 +1,14 @@
+apiVersion: operators.riskfuel.com/v1alpha1
+kind: MigOperator
+metadata:
+  name: example-mig-operator-auto
+  namespace: default
+spec:
+  nodes:
+    # hostname of node
+    dl13:
+      gpu_instances:
+      - one
+      compute_instances:
+      - two
+      

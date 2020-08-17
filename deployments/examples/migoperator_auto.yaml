@@ -1,6 +1,0 @@
-apiVersion: operators.riskfuel.com/v1alpha1
-kind: MigOperator
-metadata:
-  name: example-mig-operator-auto
-spec:
-  findNodes: true
