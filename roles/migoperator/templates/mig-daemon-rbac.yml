@@ -28,18 +28,42 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
+  name: k8s-mig-operator-daemonset-psp-role
+rules:
+- apiGroups: ["policy"]
+  resources: 
+    - podsecuritypolicies
+  verbs:
+    - use
+  resourceNames:
+  - psp:k8s-mig-operator-psp
+---
+# cluster role binding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: k8s-mig-operator-psp-crb
+subjects:
+- kind: ServiceAccount
+  name: k8s-mig-operator-daemonset-sa
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: k8s-mig-operator-daemonset-psp-role
+  apiGroup: rbac.authorization.k8s.io
+---
+# cluster role
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
   name: k8s-mig-operator-daemonset-role
 rules:
 - apiGroups: ["operators.riskfuel.com"]
   resources: 
     - migoperators
-    - podsecuritypolicies
   verbs:
-    - use
     - get
     - list
-  resourceNames:
-  - psp:k8s-mig-operator-psp
 ---
 # cluster role binding
 apiVersion: rbac.authorization.k8s.io/v1
