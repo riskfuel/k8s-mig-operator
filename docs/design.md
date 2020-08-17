@@ -36,16 +36,29 @@ nvidia-smi -i 0 --query-gpu="mig.mode.current" --format="csv"
 ```bash
 nvidia-smi mig -lci
 ```
+#### Set the MIG strategy
+
+#### Toggle MIG
+*Note: GPU reset is required after enabling / disabling MIG as well as when changing the MIG strategy*
+
+```bash
+nvidia-smi -i 0 -mig 1 # Enables MIG on GPU 0
+nvidia-smi -i 0 -mig 0 # Disables MIG on GPU 0
+```
 
 #### MIG instance creation
 
+```bash
+nvidia-smi mig -cgi 9,9 # Create 2 GPU instances with profile 9
+```
+
+#### Compute instance creation
+```bash
+nvidia-smi mig -cci -gi 1,2   # Create 2 compute instances (default profile) using GPU instance 1 and 2
+```
+
 #### MIG instance teardown
 
-#### Toggle MIG
-
-#### Set the MIG strategy
-
-#### GPU reset
-
-* GPU reset is required after enabling / disabling MIG as well as when changing the MIG strategy
-
+```bash
+nvidia-smi mig -dci -ci 1,2 -gi 1 # Destroys compute instances 1 and 2 on GPU instance 1
+```
