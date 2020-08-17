@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: mig-operator-daemon
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      name: mig-operator-daemon
+  template:
+    metadata:
+      labels:
+        name: mig-operator-daemon
+    spec:
+
+      serviceAccountName: k8s-mig-operator-daemonset-sa
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            # - matchExpressions:
+            #   - key: nvidia.com/mig.strategy
+            #     operator: In
+            #     values:
+            #     - mixed
+            #     - single
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - dl13
+
+      containers:
+      
+      - image: riskfuel/mig-operator-test:v0.0.1
+        imagePullPolicy: Always
+        name: mig-operator
+        securityContext:
+          privileged: true
+        env:
+        - name: PYTHONUNBUFFERED
+          value: "0"

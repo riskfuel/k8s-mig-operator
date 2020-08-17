@@ -1,0 +1,9 @@
+apiVersion: operators.riskfuel.com/v1alpha1
+kind: MigOperator
+metadata:
+  name: example-mig-operator
+spec:
+  findNodes: false
+  nodes:
+  - hostname: <a100-a>
+  - hostname: <a100-b>

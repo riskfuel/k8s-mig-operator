@@ -1,0 +1,20 @@
+name: bermudan test suite
+on: 
+  push:
+    paths:
+    - 'roles/**'
+    - '.github/workflows/deploy-operator.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v3
+        with:
+          buildx-version: latest
+
+      - name: Authenticate with dockerhub
+        run: |
+          echo "${{ secrets.DOCKER_TOKEN }}" | docker login --username addyvan --password-stdin
