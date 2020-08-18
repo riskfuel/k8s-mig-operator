@@ -23,7 +23,8 @@ log = logging.getLogger(__name__)
 from handlers import \
     get_mig_operator_spec, \
     get_mig_compute_instances, \
-    check_mig_enabled
+    check_mig_enabled, \
+    get_gpu_instance_profiles
 
 def sync_loop() -> None:
     """
@@ -37,6 +38,13 @@ def sync_loop() -> None:
     print("\n\n\n")
     print("---- DESIRED SPEC ----")
     print(desired_spec)
+    print("\n\n")
+
+    print("---- GPU_INSTANCE_PROFILES ----")
+
+    gpu_instance_profiles = get_gpu_instance_profiles()
+    print(gpu_instance_profiles)
+
     print("\n\n")
 
     print("---- CURRENT MIG COMPUTE INSTANCES ----")
