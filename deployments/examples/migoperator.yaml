@@ -6,7 +6,7 @@ metadata:
 spec:
   nodes:
     # hostname of node
-    - hostname: dl13
+    dl13:
       devices:
       # Test multiple MIG single GPU
       - gpu: 0
