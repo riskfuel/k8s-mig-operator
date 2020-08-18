@@ -30,12 +30,18 @@ metadata:
 spec:
   nodes:
     # hostname of node
-    dl13:
-    - <gpu_id>:<gpu_instance_profile>:<compute_instance_id(s)>
-    # For example:
-    - "1:0:0,1,2"
-    # This uses GPU 1, to create a 7g.41GB MIG instances, 
-    # with 1c.7g.41gb, 2c.7g.41gb and 3c.7g.41gb as compute instances
+    - hostname: dl13
+      devices:
+      - id: 0
+        gpu_instances:
+          # Options: 7g.40GB, 4g.20GB, 3g.20GB, 2g.10GB, 1g.5GB
+          - gpu_instance_profile: 3g.20GB
+            compute_instances: [1c, 2c]
+          - gpu_instance_profile: 2g.10GB
+            compute_instances: [2c]
+          - gpu_instance_profile: 1g.5GB
+            compute_instances: [1c]
+      ...
 ```
 
 ## Checking if a node is compatible
