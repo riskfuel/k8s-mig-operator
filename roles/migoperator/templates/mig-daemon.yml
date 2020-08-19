@@ -12,7 +12,9 @@ spec:
       labels:
         name: mig-operator-daemon
     spec:
-
+      hostPID: true
+      hostIPC: true
+      
       serviceAccountName: k8s-mig-operator-daemonset-sa
 
       affinity:
@@ -41,3 +43,12 @@ spec:
         env:
         - name: PYTHONUNBUFFERED
           value: "0"
+        - name: NVIDIA_MIG_MONITOR_DEVICES
+          value: all
+        volumeMounts:
+          - name: dmi-product-name
+            mountPath: "/sys/class/dmi/id/product_name"
+      volumes:
+        - name: dmi-product-name
+          hostPath:
+            path: "/sys/class/dmi/id/product_name"

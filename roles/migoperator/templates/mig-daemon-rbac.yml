@@ -1,21 +1,32 @@
----
-apiVersion: policy/v1beta1
-kind: PodSecurityPolicy
-metadata:
-  name: k8s-mig-operator-psp
-  namespace: default
-spec:
-  privileged: true
-  seLinux:
-    rule: RunAsAny
-  supplementalGroups:
-    rule: RunAsAny
-  runAsUser:
-    rule: RunAsAny
-  fsGroup:
-    rule: RunAsAny
-  volumes:
-  - '*'
+# ---
+# apiVersion: policy/v1beta1
+# kind: PodSecurityPolicy
+# metadata:
+#   name: k8s-mig-operator-psp
+#   namespace: default
+#   annotations:
+#     seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
+# spec:
+#   privileged: true
+#   allowPrivilegeEscalation: true
+#   allowedCapabilities:
+#   - '*'
+#   volumes:
+#   - '*'
+#   hostNetwork: true
+#   hostPorts:
+#   - min: 0
+#     max: 65535
+#   hostIPC: true
+#   hostPID: true
+#   runAsUser:
+#     rule: 'RunAsAny'
+#   seLinux:
+#     rule: 'RunAsAny'
+#   supplementalGroups:
+#     rule: 'RunAsAny'
+#   fsGroup:
+#     rule: 'RunAsAny'
 ---
 # service account
 apiVersion: v1
@@ -25,18 +36,18 @@ metadata:
   namespace: default
 ---
 # cluster role
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: k8s-mig-operator-daemonset-psp-role
-rules:
-- apiGroups: ["policy"]
-  resources: 
-    - podsecuritypolicies
-  verbs:
-    - use
-  resourceNames:
-  - psp:k8s-mig-operator-psp
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: ClusterRole
+# metadata:
+#   name: k8s-mig-operator-daemonset-psp-role
+# rules:
+# - apiGroups: ["policy"]
+#   resources: 
+#     - podsecuritypolicies
+#   verbs:
+#     - use
+#   resourceNames:
+#   - psp:k8s-mig-operator-psp
 ---
 # cluster role binding
 apiVersion: rbac.authorization.k8s.io/v1
