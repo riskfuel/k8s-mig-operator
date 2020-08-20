@@ -12,33 +12,50 @@ spec:
       # if not specified, features like toggling mig
       # or switching strategies wont be available
       secretName: migoperator-secret
-
+      # Options for MIG instance profiles: 7g.40gb, 4g.20gb, 3g.20gb, 2g.10gb, 1g.5gb
+      # Options for compute instance profiles: 7g.40gb, 4c.xg.ygb, 3c.xg.ygb, 2c.xg.ygb, 1c.xg.ygb
+      # x denotes the compute allocation, and y denotes the memory allocation for the GPU instance
       devices:
+      - gpu: 0
+        migEnabled: True
+        gpuInstances: 
+        - gpu_instance_profile: 7g.40gb
+          compute_instances: [7g.40gb]
+      - gpu: 1
+        migEnabled: True
+        gpuInstances: 
+        - gpu_instance_profile: 7g.40gb
+          compute_instances: [7g.40gb]
       - gpu: 3
         migEnabled: True
         gpuInstances: 
         - gpu_instance_profile: 7g.40gb
-        compute_instances: [7c]
+          compute_instances: [7g.40gb]
+      - gpu: 3
+        migEnabled: True
+        gpuInstances: 
+        - gpu_instance_profile: 7g.40gb
+         compute_instances: [7g.40gb]
       - gpu: 4
         migEnabled: True
         gpuInstances: 
         - gpu_instance_profile: 7g.40gb
-        compute_instances: [7c]
+          compute_instances: [7g.40gb]
       - gpu: 5
         migEnabled: True
         gpuInstances: 
         - gpu_instance_profile: 7g.40gb
-        compute_instances: [7c]
+          compute_instances: [7g.40gb]
       - gpu: 6
         migEnabled: True
         gpuInstances: 
         - gpu_instance_profile: 7g.40gb
-        compute_instances: [7c]
+         compute_instances: [7g.40gb]
       - gpu: 7
         migEnabled: True
         gpuInstances: 
         - gpu_instance_profile: 7g.40gb
-        compute_instances: [7c]
+         compute_instances: [7g.40gb]
           
         # gpuInstances: []
         # Options: 7g.40gb, 4g.20gb, 3g.20gb, 2g.10gb, 1g.5gb
