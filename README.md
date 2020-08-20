@@ -46,11 +46,11 @@ spec:
 
 ## Capabilities
 
-- [x] deleting gpu instances if they are not requested by the operator
-- [] creating missing gpu instances
-- [] deleting compute instances
-- [] creating compute instances
-- [] toggling mig for a gpu
+- [x] deleting gpu instances if they are not requested by the operator (along with their comp instances)
+- [x] creating missing gpu instances
+- [x] deleting compute instances
+- [x] creating compute instances
+- [x] toggling mig for a gpu (requires reboot currently)
 - [] identify which pods need to be killed to gracefully destroy instances
 
 ## Checking if a node is compatible
