@@ -7,27 +7,21 @@ spec:
   nodes:
     # hostname of node
     dl13:
+
+      remote_user: addison
+      # if not specified, features like toggling mig
+      # or switching strategies wont be available
+      secretName: migoperator-secret
+
       devices:
-      # Test multiple MIG single GPU
-      - gpu: 0
-        gpu_instances:
-        # Options: 7g.40GB, 4g.20GB, 3g.20GB, 2g.10GB, 1g.5GB
+      - gpu: 7
+        migEnabled: false
+        gpuInstances: []
+        # Options: 7g.40gb, 4g.20gb, 3g.20gb, 2g.10gb, 1g.5gb
         # Test multiple CI single GI
-        - gpu_instance_profile: 3g.20GB
-          compute_instances: [1c, 2c]
-        - gpu_instance_profile: 2g.10GB
-          compute_instances: [2c]
-        - gpu_instance_profile: 1g.5GB
-          compute_instances: [1c]
-      # Test single CI on single GI 
-      - gpu: 1
-        gpu_instances:
-        - gpu_instance_profile: 7g.20GB
-          compute_instances: [7c]
-      # Test an invalid configuration
-      - gpu: 2
-        gpu_instances:
-        - gpu_instance_profile: 4g.20GB
-          compute_instances: [4c]
-        - gpu_instance_profile: 4g.20GB
-          compute_instances: [4c]
+        # - gpu_instance_profile: 3g.20gb
+        #   compute_instances: [1c, 2c]
+        # - gpu_instance_profile: 2g.10gb
+        #   compute_instances: [2c]
+        # - gpu_instance_profile: 1g.5gb
+        #   compute_instances: [1c]

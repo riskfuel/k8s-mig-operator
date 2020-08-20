@@ -45,10 +45,18 @@ spec:
           value: "0"
         - name: NVIDIA_MIG_MONITOR_DEVICES
           value: all
+        - name: ANSIBLE_HOST_KEY_CHECKING
+          value: "False"
         volumeMounts:
           - name: dmi-product-name
             mountPath: "/sys/class/dmi/id/product_name"
+          - mountPath: "/var/app-secret"
+            name: ssh-key
+            readOnly: true
       volumes:
         - name: dmi-product-name
           hostPath:
             path: "/sys/class/dmi/id/product_name"
+        - name: ssh-key
+          secret:
+            secretName: migoperator-secret

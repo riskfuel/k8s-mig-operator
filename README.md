@@ -44,6 +44,15 @@ spec:
       ...
 ```
 
+## Capabilities
+
+- [x] deleting gpu instances if they are not requested by the operator
+- [] creating missing gpu instances
+- [] deleting compute instances
+- [] creating compute instances
+- [] toggling mig for a gpu
+- [] identify which pods need to be killed to gracefully destroy instances
+
 ## Checking if a node is compatible
 
 You can check to see a specific node's compatibility by running the following:

@@ -3,7 +3,7 @@ from .utils import run_shell_cmd_split
 def get_gpu_instance_profiles(gpu : int) -> dict:
 
     raw : str = run_shell_cmd_split(f"nvidia-smi mig -i {gpu} -lgip")
-    gpu_instance_profiles : List[dict] = {}
+    gpu_instance_profiles : dict = {}
 
     is_header = True
     for line in raw:

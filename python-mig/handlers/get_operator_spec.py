@@ -10,9 +10,16 @@ def get_operator_spec(operator_name : str = "example-mig-operator-auto", operato
     raw : str = run_shell_cmd(f"kubectl -n {operator_ns} get migoperators {operator_name} -o yaml")
     node : str = run_shell_cmd(f"kubectl -n {operator_ns} get pod {socket.gethostname()} --output=jsonpath={{.spec.nodeName}}")
 
+    spec = {}
     try:
         migoperator = yaml.safe_load(raw)
-        spec = migoperator["spec"]["nodes"][node]
+
+        for device in migoperator["spec"]["nodes"][node]["devices"]:
+            spec[f"gpu-{device['gpu']}"] = {
+                "migEnabled": device["migEnabled"],
+                "gpuInstances": device["gpuInstances"]
+            }
+            
         return spec
     except Exception as e:
         log.error(e)
