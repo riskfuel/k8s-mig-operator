@@ -1,0 +1,21 @@
+# sec 11.1: https://docs.nvidia.com/dgx/pdf/dgxa100-user-guide.pdf
+- hosts: all
+  vars_files:
+    - ./vars.yml
+  remote_user: "{{ remote_user }}"
+  tasks:
+
+  - name: stop services
+    shell: |
+      cat > reset.sh <<EOF
+
+      sudo systemctl stop nvsm
+      sudo systemctl stop dcgm
+      sudo systemctl restart docker
+
+      EOF
+      sudo chmod +x reset.sh
+      ./reset.sh 
+    register: out
+
+  - debug: var=out.stdout_lines

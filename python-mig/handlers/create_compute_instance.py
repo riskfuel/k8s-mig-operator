@@ -9,5 +9,5 @@ def create_compute_instance(gpu : int, instance_id : int) -> None:
     """
     
     log.info(f"Creating compute instance using instance id '{instance_id}' on gpu '{gpu}'")
-    raw : str = run_shell_cmd(f"nvidia-smi mig -cci -gi {instance_id}")
+    raw : str = run_shell_cmd(f"nvidia-smi mig -i {gpu} -cci -gi {instance_id}")
     log.info(raw)

@@ -1,0 +1,17 @@
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+  
+  - name: mkdir .ssh
+    shell: mkdir /root/.ssh
+    register: out
+
+  - name: copy ssh-key
+    shell: cp /var/app-secret/ssh-privatekey /root/.ssh/id_rsa
+    register: out
+  
+  - name: update key perms
+    shell: chmod 400 /root/.ssh/id_rsa
+    register: out
+
+  - debug: var=out.stdout_lines

@@ -1,0 +1,13 @@
+# sec 11.1: https://docs.nvidia.com/dgx/pdf/dgxa100-user-guide.pdf
+- hosts: all
+  vars_files:
+    - ./vars.yml
+  remote_user: "{{ remote_user }}"
+  tasks:
+
+  - name: start services
+    shell: |
+      sudo reboot
+    register: out
+
+  - debug: var=out.stdout_lines

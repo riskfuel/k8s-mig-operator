@@ -1,12 +1,12 @@
 from typing import List
 from .utils import run_shell_cmd_split
 
-def get_gpu_instances() -> List[dict]:
+def get_gpu_instances(gpu : int) -> List[dict]:
     """
     Parse the output of "nvidia-smi mig -lci"
     :return: List of dictionaries with each mig instance's metadata
     """
-    raw : str = run_shell_cmd_split("nvidia-smi mig -lgi")
+    raw : str = run_shell_cmd_split(f"nvidia-smi mig -i {gpu} -lgi")
     instances : List[dict] = []
 
     is_header = True

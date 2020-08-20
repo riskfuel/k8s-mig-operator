@@ -18,24 +18,22 @@ import os
 from typing import List
 
 import logging
+logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 log = logging.getLogger(__name__)
 
 from handlers import \
+    run_shell_cmd, \
     get_operator_spec, \
     get_gpu_instances, \
     get_compute_instances, \
     check_mig_enabled, \
-    get_gpu_instance_profiles
+    get_gpu_instance_profiles, \
+    get_gpus, \
+    get_processes, \
+    reset_gpus
 
-def select_actions(desired_state : dict, current_state : dict) -> List[dict]:
-    
-    print("\n\n")
-    print("---- SELECTING ACTIONS ----")
-
-    
-
-    print("\n\n")
-
+from get_actions import get_req_actions
+from do_actions import do_actions
 
 def sync_loop() -> None:
     """
@@ -43,43 +41,44 @@ def sync_loop() -> None:
     * evaluates the current state
     * runs nvidia-smi commands to sync the two
     """
-    print("Starting sync loop...")
+    log.info("Running sync loop...")
 
     desired_spec = get_operator_spec()
-    print("\n\n\n")
-    print("---- DESIRED SPEC ----")
-    print(desired_spec)
-    print("\n\n")
+    gpus : dict = get_gpus()
+    gpus : dict = get_processes(gpus)
+    
+    reset = False
+    for gpu_index in gpus:
+        i = int(gpu_index)
+        
+        if f"gpu-{i}" not in desired_spec:
+            continue
 
-    print("---- GPU_INSTANCE_PROFILES ----")
+        gpu_instance_profiles : dict = get_gpu_instance_profiles(i)
+        mig_gpu_instances : List[dict] = get_gpu_instances(i)
+        mig_comp_instances : List[dict] = get_compute_instances(i)
 
-    gpu_instance_profiles = get_gpu_instance_profiles(0)
-    print(gpu_instance_profiles)
+        actions = get_req_actions(
+            i, 
+            desired_spec[f"gpu-{i}"], 
+            mig_gpu_instances,
+            mig_gpu_instances,
+            gpu_instance_profiles,
+            check_mig_enabled(i),
+            reset
+        )
 
-    print("\n\n")
+        if do_actions(actions):
+            reset = True
 
-    print("---- CURRENT MIG GPU INSTANCES ----")
+    if reset:
+        reset_gpus()
 
-    mig_gpu_instances = get_gpu_instances()
-    print(mig_gpu_instances)
-
-    print("\n\n")
-    print("---- CURRENT MIG COMPUTE INSTANCES ----")
-    mig_comp_instances : List[dict] = get_compute_instances()
-    print(f"current mig instances: {mig_comp_instances}")
-    print("\n\n")
-
-    print("---- MIG AVAILABILITY BY GPU ----")
-    try:
-        for i in range(8):
-            print(f"GPU-{i} mig enabled: {check_mig_enabled(i)}")
-    except Exception as e:
-        log.error(e)
         
 
 
 if __name__ == "__main__":
-    
+
     while True:
         sync_loop()
-        time.sleep(10)
+        time.sleep(5)
