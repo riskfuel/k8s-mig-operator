@@ -1,8 +1,10 @@
 from .utils import run_shell_cmd
 from .check_mig_enabled import check_mig_enabled
 from .create_compute_instance import create_compute_instance
+from .delete_compute_instance import delete_compute_instance
 from .create_gpu_instance import create_gpu_instance
 from .delete_gpu_instance import delete_gpu_instance
+from .get_compute_instance_profiles import get_compute_instance_profiles
 from .get_gpu_instance_profiles import get_gpu_instance_profiles
 from .get_compute_instances import get_compute_instances
 from .get_operator_spec import get_operator_spec
@@ -16,8 +18,10 @@ __all__ = [
     "utils",
     "check_mig_enabled",
     "create_compute_instance",
+    "delete_compute_instance",
     "create_gpu_instance",
     "delete_gpu_instance",
+    "get_compute_instance_profiles",
     "get_gpu_instance_profiles",
     "get_compute_instances",
     "get_operator_spec",

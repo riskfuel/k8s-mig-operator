@@ -16,6 +16,6 @@
       EOF
       sudo chmod +x reset.sh
       ./reset.sh 
-    register: out
-
-  - debug: var=out.stdout_lines
+    # register: out
+    no_log: true
+  # - debug: var=out.stdout_lines

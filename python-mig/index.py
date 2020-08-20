@@ -28,6 +28,7 @@ from handlers import \
     get_compute_instances, \
     check_mig_enabled, \
     get_gpu_instance_profiles, \
+    get_compute_instance_profiles, \
     get_gpus, \
     get_processes, \
     reset_gpus
@@ -55,6 +56,7 @@ def sync_loop() -> None:
             continue
 
         gpu_instance_profiles : dict = get_gpu_instance_profiles(i)
+        compute_instance_profiles : dict = get_compute_instance_profiles(i)
         mig_gpu_instances : List[dict] = get_gpu_instances(i)
         mig_comp_instances : List[dict] = get_compute_instances(i)
 
@@ -62,13 +64,14 @@ def sync_loop() -> None:
             i, 
             desired_spec[f"gpu-{i}"], 
             mig_gpu_instances,
-            mig_gpu_instances,
+            mig_comp_instances,
             gpu_instance_profiles,
+            compute_instance_profiles,
             check_mig_enabled(i),
             reset
         )
 
-        if do_actions(actions):
+        if do_actions(actions, mig_comp_instances):
             reset = True
 
     if reset:

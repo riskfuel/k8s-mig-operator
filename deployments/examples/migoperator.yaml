@@ -15,12 +15,14 @@ spec:
 
       devices:
       - gpu: 7
-        migEnabled: false
-        gpuInstances: []
+        migEnabled: true
+        gpuInstances:
         # Options: 7g.40gb, 4g.20gb, 3g.20gb, 2g.10gb, 1g.5gb
         # Test multiple CI single GI
-        # - gpu_instance_profile: 3g.20gb
-        #   compute_instances: [1c, 2c]
+        - gpu_instance_profile: 7g.40gb
+          compute_instances:
+          - 1c.7g.40gb
+          - 1c.7g.40gb
         # - gpu_instance_profile: 2g.10gb
         #   compute_instances: [2c]
         # - gpu_instance_profile: 1g.5gb

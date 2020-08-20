@@ -9,6 +9,18 @@
     shell: |
       sudo systemctl start nvsm
       sudo systemctl start dcgm
-    register: out
+    # register: out
+    no_log: true
 
-  - debug: var=out.stdout_lines
+   # Permissions
+  - name: grant user permissions to manage MIG instances
+    file:
+      path: "{{ item }}"
+      owner: root
+      group: root
+      mode: '0444'
+    with_items:
+      - /proc/driver/nvidia/capabilities/mig/config
+      - /proc/driver/nvidia/capabilities/mig/monitor
+    tags: enable, never
+  # - debug: var=out.stdout_lines

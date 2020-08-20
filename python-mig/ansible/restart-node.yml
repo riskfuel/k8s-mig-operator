@@ -8,6 +8,7 @@
   - name: start services
     shell: |
       sudo reboot
-    register: out
+    # register: out
+    no_log: true
 
-  - debug: var=out.stdout_lines
+  # - debug: var=out.stdout_lines

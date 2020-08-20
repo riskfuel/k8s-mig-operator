@@ -8,7 +8,7 @@ def check_mig_enabled(gpu_index : int) -> bool:
     Checks if MiG is enabled for a GPU
     :return: bool
     """
-    cmd : str = f'nvidia-smi -i 0 --query-gpu="mig.mode.current" --format="csv"'
+    cmd : str = f'nvidia-smi -i {gpu_index} --query-gpu="mig.mode.current" --format="csv"'
     raw : str = run_shell_cmd_split(cmd)
     is_enabled : bool = False
 
