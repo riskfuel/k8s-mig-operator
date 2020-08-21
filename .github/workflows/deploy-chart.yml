@@ -14,12 +14,6 @@ jobs:
         uses: actions/checkout@v1
         with:
           ref: 'master'
-      - name: Checkout
-        uses: actions/checkout@v1
-        with:
-          ref: 'gh-pages'
-          clean: false
-
 
       - name: Install tools
         run: |
@@ -43,7 +37,15 @@ jobs:
           
           helm package ./deployments/chart --destination .deploy
           chart-releaser upload ./deployments/chart --owner $GIT_USERNAME -r $GIT_REPOSITORY_NAME --token $CH_TOKEN -p .deploy
-          git checkout gh-pages
+      
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v1
+        with:
+          ref: 'gh-pages'
+          clean: false
+          
+      - name: Update chart index
+        run: | 
           chart-releaser index -i ./index.yaml -p .deploy --owner $GIT_USERNAME --repo $GIT_REPOSITORY_NAME
           git add index.yaml
           git commit -m "release $version"
