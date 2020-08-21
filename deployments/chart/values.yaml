@@ -5,4 +5,4 @@ sshSecretName: mig-operator-secret
 deployNvidiaPlugins: true
 operatorName: example-mig-operator
 operatorNamespace: kube-system
-image: riskfuel/mig-operator:0.0.1
+image: riskfuel/mig-operator:0.1.0
