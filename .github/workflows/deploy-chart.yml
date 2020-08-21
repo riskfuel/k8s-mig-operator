@@ -33,7 +33,7 @@ jobs:
           version=$(cat version)
           
           helm package --version=$version ./deployments/chart --destination .deploy
-          cr upload ./deployments/chart --owner $GIT_USERNAME -r $GIT_REPOSITORY_NAME --token $CH_TOKEN -p .deploy
+          cr upload ./deployments/chart --owner $GIT_USERNAME -r $GIT_REPOSITORY_NAME --token $CH_TOKEN -p .deploy || echo "$version already exists"
       
       - name: Checkout gh-pages branch
         uses: actions/checkout@v1
