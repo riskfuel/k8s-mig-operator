@@ -45,7 +45,8 @@ jobs:
           clean: false
           
       - name: Update chart index
-        run: | 
+        run: |
+          ls
           chart-releaser index -i ./index.yaml -p .deploy --owner $GIT_USERNAME --repo $GIT_REPOSITORY_NAME
           git add index.yaml
           git commit -m "release $version"
