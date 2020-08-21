@@ -42,7 +42,7 @@ jobs:
           
       - name: Update chart index
         run: |
-          cr index -i ./index.yaml -p .deploy --owner riskfuel --repo k8s-mig-operator
+          cr index -i ./index.yaml -p .deploy --owner riskfuel --repo k8s-mig-operator || echo "index.yaml did not change"
           git add index.yaml
           git config --local user.email ${{ secrets.GIT_EMAIL }}
           git config --local user.name ${{ secrets.GIT_USER }}
