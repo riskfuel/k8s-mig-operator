@@ -10,4 +10,13 @@ entries:
     urls:
     - https://github.com/riskfuel/k8s-mig-operator/releases/download/k8s-mig-operator-0.1.0/k8s-mig-operator-0.1.0.tgz
     version: 0.1.0
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-08-21T18:47:56.352624257Z"
+    description: A lightweight python operator for managing mig instances
+    digest: 63a464f7b149a4f65d0b55b8893ebfa1525cfc7dc1cb7d5fe8ef7d9356d9e6a0
+    name: k8s-mig-operator
+    urls:
+    - https://github.com/riskfuel/k8s-mig-operator/releases/download/k8s-mig-operator-0.0.1/k8s-mig-operator-0.0.1.tgz
+    version: 0.0.1
 generated: "2020-08-21T13:24:05.879567596-04:00"
