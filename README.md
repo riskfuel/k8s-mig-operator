@@ -24,14 +24,16 @@ If you plan to allow the operator to perform resets (currently running a reboot)
 ```bash
 helm repo add k8s-mig-operator https://riskfuel.github.io/k8s-mig-operator/
 helm repo update
-helm install k8s-mig-operator \
+helm install mig-operator k8s-mig-operator/k8s-mig-operator \
+  --version=0.0.1 \
   --set deployNamespace=default \
   --set dryRun=false \
   --set allowNodeReset=true \
-  --set sshSecretName=mig-operator-secret \
+  --set sshSecretName=migoperator-secret \
   --set deployNvidiaPlugins=true \
   --set operatorName=example-mig-operator \
-  --set operatorNamespace=default
+  --set operatorNamespace=default \
+  --set image=riskfuel/mig-operator:0.0.1
 ```
 
 ## spec

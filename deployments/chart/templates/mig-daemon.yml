@@ -22,7 +22,7 @@ spec:
 
       containers:
       
-      - image: riskfuel/mig-operator:v0.0.1
+      - image: {{ .Values.image }}
         imagePullPolicy: Always
         name: mig-operator
         securityContext:
