@@ -25,8 +25,6 @@ If you plan to allow the operator to perform resets (currently running a reboot)
 helm 
 ```
 
-
-
 ## spec
 
 ```yaml
@@ -58,12 +56,12 @@ spec:
 
 ## Capabilities
 
-- [x] deleting gpu instances if they are not requested by the operator (along with their comp instances)
-- [x] creating missing gpu instances
-- [x] deleting compute instances
-- [x] creating compute instances
-- [x] toggling mig for a gpu (requires reboot currently)
-- [] identify which pods need to be killed to gracefully destroy instances
+- [x] delete gpu instances if they are not requested by the operator 
+  - also removes any comp instances on the gpu instance
+- [x] create missing gpu instances
+- [x] delete compute instances
+- [x] create compute instances
+- [x] toggle mig for a gpu (requires reboot/reset currently)
 
 ## Contributing
 
