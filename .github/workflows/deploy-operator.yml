@@ -8,6 +8,9 @@ on:
     - "requirements.txt"
     - "Dockerfile"
     - '.github/workflows/deploy-operator.yml'
+    - '.github/workflows/deploy-chart.yml'
+    - 'deployments/chart/**'
+    - 'version'
 jobs:
   deploy-mig-daemon-img:
     runs-on: ubuntu-latest
