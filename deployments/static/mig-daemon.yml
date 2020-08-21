@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: mig-operator-daemon
-  namespace: default
 spec:
   selector:
     matchLabels:
@@ -17,25 +16,12 @@ spec:
       
       serviceAccountName: k8s-mig-operator-daemonset-sa
 
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            # - matchExpressions:
-            #   - key: nvidia.com/mig.strategy
-            #     operator: In
-            #     values:
-            #     - mixed
-            #     - single
-            - matchExpressions:
-              - key: kubernetes.io/hostname
-                operator: In
-                values:
-                - dl13
+      nodeSelector:
+        nvidia.com/gpu.product: "A100-SXM4-40GB"
 
       containers:
       
-      - image: riskfuel/mig-operator-test:v0.0.1
+      - image: riskfuel/mig-operator:v0.0.1
         imagePullPolicy: Always
         name: mig-operator
         securityContext:

@@ -77,8 +77,6 @@ def sync_loop() -> None:
     if reset:
         reset_gpus()
 
-        
-
 
 if __name__ == "__main__":
 

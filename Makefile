@@ -16,10 +16,5 @@ shell:
 	--rm ansible-operator-shell
 
 .PHONY: deploy
-deploy: 
-	operator-sdk build riskfuel/mig-operator:latest
-	docker push riskfuel/mig-operator-test:latest
-
-.PHONY: deploymig
-deploymig:
-	docker build -t riskfuel/mig-operator-test:$(shell cat version) -f ./build/Dockerfile.mig . && docker push riskfuel/mig-operator-test:$(shell cat version)
+deploy:
+	docker build -t riskfuel/mig-operator:$(shell cat version) . && docker push riskfuel/mig-operator:$(shell cat version)

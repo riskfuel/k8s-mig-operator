@@ -1,4 +1,4 @@
-name: bermudan test suite
+name: Deploy mig daemon image
 on: 
   push:
     branches:
@@ -7,7 +7,7 @@ on:
     - 'roles/**'
     - '.github/workflows/deploy-operator.yml'
 jobs:
-  test:
+  deploy-mig-daemon-img:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -34,9 +34,18 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      # - name: Authenticate with dockerhub
-      #   run: |
-      #     echo "${{ secrets.DOCKER_TOKEN }}" | docker login --username addyvan --password-stdin
-
-      # - name: Pull img
-      #   run: |
+      - name: build docker image
+        run: |
+          DOCKER_IMAGE=riskfuel/k8s-mig-operator:$(cat version)
+          docker buildx build \
+            --cache-from "type=local,src=/tmp/.buildx-cache" \
+            --cache-to "type=local,dest=/tmp/.buildx-cache" \
+            --platform linux/amd64 \
+            --tag ${DOCKER_IMAGE} \
+            --output "type=docker" \
+            .
+      
+      - name: push docker image
+        run: |
+          docker push riskfuel/k8s-mig-operator:$(cat version)
+      
