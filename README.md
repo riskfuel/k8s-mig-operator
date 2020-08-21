@@ -21,6 +21,8 @@ For nodes in which you wish to enable MIG:
 
 If you plan to allow the operator to perform resets (currently running a reboot), see the [configuring secure node access docs](./docs/configuring-secure-node-access.md) before continuing.
 
+### Install the operator daemons
+
 ```bash
 helm repo add k8s-mig-operator https://riskfuel.github.io/k8s-mig-operator/
 helm repo update
@@ -34,6 +36,14 @@ helm install mig-operator k8s-mig-operator/k8s-mig-operator \
   --set operatorName=example-mig-operator \
   --set operatorNamespace=default \
   --set image=riskfuel/k8s-mig-operator:0.1.1
+```
+
+### Create an operator CRD
+
+*Note:* You can use the examples in `deployments/examples` as a base.
+
+```
+kubectl apply -f <example-mig-operator>
 ```
 
 ## spec
