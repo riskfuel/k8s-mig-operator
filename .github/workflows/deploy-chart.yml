@@ -43,5 +43,12 @@ jobs:
         run: |
           cr index -i ./index.yaml -p .deploy --owner riskfuel --repo k8s-mig-operator
           git add index.yaml
+          git config --local user.email ${{ secrets.GIT_EMAIL }}
+          git config --local user.name ${{ secrets.GIT_USER }}
           git commit -m "release $version"
-          git push origin gh-pages
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GIT_TOKEN }}
+          branch: gh-pages
