@@ -16,11 +16,11 @@ jobs:
       - name: Install tools
         run: |
           echo "Installing Helm..."
-          curl -LO "https://kubernetes-helm.storage.googleapis.com/helm-v2.13.1-linux-amd64.tar.gz"
-          sudo mkdir -p "/usr/local/helm-v2.13.1"
-          sudo tar -xzf "helm-v2.13.1-linux-amd64.tar.gz" -C "/usr/local/helm-v2.13.1"
-          sudo ln -s "/usr/local/helm-v2.13.1/linux-amd64/helm" /usr/local/bin/helm
-          rm -f "helm-v2.13.1-linux-amd64.tar.gz"
+          # curl -LO "https://kubernetes-helm.storage.googleapis.com/helm-v2.13.1-linux-amd64.tar.gz"
+          # sudo mkdir -p "/usr/local/helm-v2.13.1"
+          # sudo tar -xzf "helm-v2.13.1-linux-amd64.tar.gz" -C "/usr/local/helm-v2.13.1"
+          # sudo ln -s "/usr/local/helm-v2.13.1/linux-amd64/helm" /usr/local/bin/helm
+          # rm -f "helm-v2.13.1-linux-amd64.tar.gz"
           helm init --client-only
 
           echo "Installing chart-releaser..."
