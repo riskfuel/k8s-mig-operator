@@ -29,10 +29,10 @@ main() {
     head_rev=$(git rev-parse --verify HEAD)
     echo "$head_rev HEAD"
 
-    if [[ "$latest_tag_rev" == "$head_rev" ]]; then
-        echo "No code changes. Nothing to release."
-        exit
-    fi
+    # if [[ "$latest_tag_rev" == "$head_rev" ]]; then
+    #     echo "No code changes. Nothing to release."
+    #     exit
+    # fi
 
     rm -rf .deploy
     mkdir -p .deploy
