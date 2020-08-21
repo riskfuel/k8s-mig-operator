@@ -20,7 +20,7 @@ jobs:
           helm version
           echo "Installing chart-releaser..."
           curl -sSL https://github.com/helm/chart-releaser/releases/download/v0.2.1/chart-releaser_0.2.1_linux_amd64.tar.gz | tar xzf -
-          mv cr /bin/cr
+          sudo mv cr /bin/cr
       
       - name: Release
         run: |
