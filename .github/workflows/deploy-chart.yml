@@ -24,16 +24,14 @@ jobs:
       
       - name: Release
         run: |
-          export GIT_USERNAME=riskfuel
           export GIT_EMAIL=${{ secrets.GIT_EMAIL }}
           export CH_TOKEN=${{ secrets.GIT_TOKEN }}
-          export GIT_REPOSITORY_NAME=k8s-mig-operator
           export GIT_REPOSITORY_URL=https://github.com/riskfuel/k8s-mig-operator
           
           version=$(cat version)
           
           helm package --version=$version ./deployments/chart --destination .deploy
-          cr upload ./deployments/chart --owner $GIT_USERNAME -r $GIT_REPOSITORY_NAME --token $CH_TOKEN -p .deploy || echo "$version already exists"
+          cr upload ./deployments/chart --owner riskfuel -r k8s-mig-operator --token $CH_TOKEN -p .deploy || echo "$version already exists"
       
       - name: Checkout gh-pages branch
         uses: actions/checkout@v1
@@ -43,7 +41,7 @@ jobs:
           
       - name: Update chart index
         run: |
-          cr index -i ./index.yaml -p .deploy --owner $GIT_USERNAME --repo $GIT_REPOSITORY_NAME
+          cr index -i ./index.yaml -p .deploy --owner riskfuel --repo k8s-mig-operator
           git add index.yaml
           git commit -m "release $version"
           git push origin gh-pages
