@@ -33,7 +33,7 @@ helm install mig-operator k8s-mig-operator/k8s-mig-operator \
   --set deployNvidiaPlugins=true \
   --set operatorName=example-mig-operator \
   --set operatorNamespace=default \
-  --set image=riskfuel/mig-operator:0.1.0
+  --set image=riskfuel/k8s-mig-operator:0.1.1
 ```
 
 ## spec

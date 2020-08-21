@@ -36,7 +36,7 @@ spec:
             privileged: true
           args: ["--mig-strategy=mixed"]
       nodeSelector:
-        nvidia.com/gpu.product: "A100-SXM4-40GB"
+        feature.node.kubernetes.io/pci-10de.present: "true"
       volumes:
         - name: output-dir
           hostPath:
