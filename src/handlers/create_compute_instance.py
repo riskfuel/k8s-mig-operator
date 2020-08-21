@@ -8,6 +8,5 @@ def create_compute_instance(gpu : int, gpu_instance_id : int, profile_id : int) 
     :param: gpu_instance_id - instance id of the parent gpu instance
     """
     
-    log.info(f"Creating compute instance using profile_id '{profile_id}' on gpu-{gpu} / gpu instance {gpu_instance_id}")
     raw : str = run_shell_cmd(f"nvidia-smi mig -i {gpu} -gi {gpu_instance_id} -cci {profile_id}")
-    log.info(raw)
+    log.info(f" {raw}")

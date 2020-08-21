@@ -14,12 +14,15 @@ authors:
 """
 
 import time
+from datetime import datetime
 import os
 from typing import List
 
 import logging
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 log = logging.getLogger(__name__)
+
+from settings import settings
 
 from handlers import \
     run_shell_cmd, \
@@ -33,8 +36,11 @@ from handlers import \
     get_processes, \
     reset_gpus
 
-from get_actions import get_req_actions
-from do_actions import do_actions
+from actions import \
+    get_required_actions, \
+    perform_actions
+
+dry_run = settings["DRY_RUN"]
 
 def sync_loop() -> None:
     """
@@ -42,7 +48,9 @@ def sync_loop() -> None:
     * evaluates the current state
     * runs nvidia-smi commands to sync the two
     """
-    log.info("Running sync loop...")
+    now = datetime.now()
+    t = now.strftime("%m/%d/%Y, %H:%M:%S")
+    log.info(f" {t} Running sync loop...")
 
     desired_spec = get_operator_spec()
     gpus : dict = get_gpus()
@@ -57,22 +65,30 @@ def sync_loop() -> None:
 
         gpu_instance_profiles : dict = get_gpu_instance_profiles(i)
         compute_instance_profiles : dict = get_compute_instance_profiles(i)
-        mig_gpu_instances : List[dict] = get_gpu_instances(i)
-        mig_comp_instances : List[dict] = get_compute_instances(i)
+        gpu_instances : List[dict] = get_gpu_instances(i)
+        comp_instances : List[dict] = get_compute_instances(i)
 
-        actions = get_req_actions(
+        actions = get_required_actions(
             i, 
             desired_spec[f"gpu-{i}"], 
-            mig_gpu_instances,
-            mig_comp_instances,
+            gpu_instances,
+            comp_instances,
             gpu_instance_profiles,
             compute_instance_profiles,
             check_mig_enabled(i),
             reset
         )
 
-        if do_actions(actions, mig_comp_instances):
-            reset = True
+        if len(actions) < 1:
+            now = datetime.now()
+            t = now.strftime("%m/%d/%Y, %H:%M:%S")
+            log.info(f" {t} gpu{i} synced, no actions required.")
+
+        if not dry_run:
+            if perform_actions(actions):
+                reset = True
+        else:
+            print("DRY_RUN enabled, not performing actions.")
 
     if reset:
         reset_gpus()
