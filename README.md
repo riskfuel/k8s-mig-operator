@@ -1,6 +1,6 @@
 # NVIDIA MIG kubernetes operator
 
-A kubernetes operator designed to manage nvidia MIG instances on the DGX A100 without leaving kubernetes. 
+A simple python based kubernetes operator for managing nvidia MIG instances on A100 nodes. 
 
 ## Prerequisites
 
@@ -19,9 +19,13 @@ For nodes in which you wish to enable MIG:
 
 ## Quickstart
 
+If you plan to allow the operator to perform resets (currently running a reboot), see the [configuring secure node access docs](./docs/configuring-secure-node-access.md) before continuing.
+
 ```bash
-kubectl apply -f <release-yml>
+helm 
 ```
+
+
 
 ## spec
 

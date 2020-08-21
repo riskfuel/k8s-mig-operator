@@ -14,9 +14,8 @@ RUN apt update && \
 RUN apt-get update
 RUN apt-get -y install python3 python3-nacl python3-pip libffi-dev ssh
 
-# Install ansible
-RUN pip3 install ansible
-RUN pip3 install pyyaml
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
 
 COPY src /home/app_user/app
 RUN chmod +x startup.sh
