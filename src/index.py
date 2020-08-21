@@ -79,13 +79,13 @@ def sync_loop() -> None:
             reset
         )
         if actions == None:
-            pass
+            reset_gpus()
         elif len(actions) < 1:
             now = datetime.now()
             t = now.strftime("%m/%d/%Y, %H:%M:%S")
             log.info(f" {t} gpu{i} synced, no actions required.")
 
-        if not dry_run:
+        if not dry_run and actions:
             if perform_actions(actions):
                 reset = True
         else:
