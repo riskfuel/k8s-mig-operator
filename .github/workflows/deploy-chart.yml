@@ -10,8 +10,16 @@ jobs:
   deploy-mig-daemon-img:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout master
+        uses: actions/checkout@v1
+        with:
+          ref: 'master'
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
+        with:
+          ref: 'gh-pages'
+          clean: false
+
 
       - name: Install tools
         run: |
