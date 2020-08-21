@@ -3,6 +3,15 @@ entries:
   k8s-mig-operator:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2020-08-21T19:44:32.575461829Z"
+    description: A lightweight python operator for managing mig instances
+    digest: 7b4bae3c270b47a9c2a150fe080b598727365c2a8f76dd37f15e5b002924731d
+    name: k8s-mig-operator
+    urls:
+    - https://github.com/riskfuel/k8s-mig-operator/releases/download/k8s-mig-operator-0.1.1/k8s-mig-operator-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2020-08-21T19:32:28.14812686Z"
     description: A lightweight python operator for managing mig instances
     digest: 43b975ff6b642ff87d2a6082c7bd721fa60ec8499cc52428f19f76a2e1cac220
