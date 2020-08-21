@@ -17,4 +17,4 @@ shell:
 
 .PHONY: deploy
 deploy:
-	docker build -t riskfuel/mig-operator:$(shell cat version) . && docker push riskfuel/mig-operator:$(shell cat version)
+	docker build -t riskfuel/mig-operator:latest . && docker push riskfuel/mig-operator:latest

@@ -38,7 +38,8 @@ jobs:
 
       - name: build docker image
         run: |
-          DOCKER_IMAGE=riskfuel/k8s-mig-operator:$(cat version)
+          version=$(cat version)
+          DOCKER_IMAGE=riskfuel/k8s-mig-operator:$version
           docker buildx build \
             --cache-from "type=local,src=/tmp/.buildx-cache" \
             --cache-to "type=local,dest=/tmp/.buildx-cache" \
@@ -49,5 +50,6 @@ jobs:
       
       - name: push docker image
         run: |
-          docker push riskfuel/k8s-mig-operator:$(cat version)
+          version=$(cat version)
+          docker push riskfuel/k8s-mig-operator:$version
       

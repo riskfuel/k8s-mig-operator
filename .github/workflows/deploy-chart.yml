@@ -4,8 +4,7 @@ on:
     branches:
       - master
     paths:
-    - 'deployments/charts/**'
-    - .github/workflows/deploy-chart.yml
+    - 'version'
 jobs:
   deploy-mig-daemon-img:
     runs-on: ubuntu-latest
@@ -30,5 +29,13 @@ jobs:
           export CH_TOKEN=${{ secrets.GIT_TOKEN }}
           export GIT_REPOSITORY_NAME=k8s-mig-operator
           export GIT_REPOSITORY_URL=https://github.com/riskfuel/k8s-mig-operator
-          chmod +x .github/release.sh
-          .github/release.sh
+          
+          version=$(cat version)
+          
+          helm package ./deployments/chart --destination .deploy
+          cr upload ./deployments/chart --owner $GIT_USERNAME -r $GIT_REPOSITORY_NAME --token $CH_TOKEN -p .deploy
+          git checkout gh-pages
+          cr index -i ./index.yaml -p .deploy --owner $GIT_USERNAME --repo $GIT_REPOSITORY_NAME
+          git add index.yaml
+          git commit -m "release $version"
+          git push origin gh-pages

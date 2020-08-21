@@ -1,0 +1,6 @@
+apiVersion: v2
+name: k8s-mig-operator
+description: A lightweight python operator for managing mig instances
+type: application
+version: 0.1.0 # Not being used, see version file in root of the repo
+appVersion: 1.16.0
