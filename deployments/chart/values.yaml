@@ -1,0 +1,6 @@
+deployNamespace: kube-system
+dryRun: false
+allowNodeReset: true
+sshSecretName: mig-operator-secret
+deployNvidiaPlugins: true
+

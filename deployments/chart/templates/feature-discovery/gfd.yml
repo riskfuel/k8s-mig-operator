@@ -1,0 +1,47 @@
+{{ if .Values.deployNvidiaPlugins }}
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: gpu-feature-discovery
+  namespace: {{ .Values.deployNamespace }}
+  labels:
+    app.kubernetes.io/managed-by: k8s-mig-operator
+    app.kubernetes.io/name: gpu-feature-discovery
+    app.kubernetes.io/version: 0.2.0-rc.1
+    app.kubernetes.io/part-of: nvidia-gpu
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: gpu-feature-discovery
+      app.kubernetes.io/part-of: nvidia-gpu
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: gpu-feature-discovery
+        app.kubernetes.io/version: 0.2.0-rc.1
+        app.kubernetes.io/part-of: nvidia-gpu
+    spec:
+      containers:
+        - image: nvidia/gpu-feature-discovery:v0.2.0-rc.1
+          name: gpu-feature-discovery
+          volumeMounts:
+            - name: output-dir
+              mountPath: "/etc/kubernetes/node-feature-discovery/features.d"
+            - name: dmi-product-name
+              mountPath: "/sys/class/dmi/id/product_name"
+          env:
+            - name: NVIDIA_MIG_MONITOR_DEVICES
+              value: all
+          securityContext:
+            privileged: true
+          args: ["--mig-strategy=mixed"]
+      nodeSelector:
+        nvidia.com/gpu.product: "A100-SXM4-40GB"
+      volumes:
+        - name: output-dir
+          hostPath:
+            path: "/etc/kubernetes/node-feature-discovery/features.d"
+        - name: dmi-product-name
+          hostPath:
+            path: "/sys/class/dmi/id/product_name"
+{{ end }}

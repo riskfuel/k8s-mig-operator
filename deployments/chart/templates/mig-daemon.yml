@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: mig-operator-daemon
+  namespace: {{ .Values.deployNamespace }}
 spec:
   selector:
     matchLabels:
@@ -30,9 +31,17 @@ spec:
         - name: PYTHONUNBUFFERED
           value: "0"
         - name: ALLOW_NODE_RESET
+          {{ if .Values.allowNodeReset }}
           value: "True"
+          {{ else }}
+          value: "False" 
+          {{ end }}
         - name: DRY_RUN
-          value: "False"
+          {{ if .Values.dryRun }}
+          value: "True"
+          {{ else }}
+          value: "False" 
+          {{ end }}
         - name: NVIDIA_MIG_MONITOR_DEVICES
           value: all
         - name: ANSIBLE_HOST_KEY_CHECKING
@@ -40,13 +49,17 @@ spec:
         volumeMounts:
           - name: dmi-product-name
             mountPath: "/sys/class/dmi/id/product_name"
+          {{ if .Values.allowNodeReset }}
           - mountPath: "/var/app-secret"
             name: ssh-key
             readOnly: true
+          {{ end }}
       volumes:
         - name: dmi-product-name
           hostPath:
             path: "/sys/class/dmi/id/product_name"
+        {{ if .Values.allowNodeReset }}
         - name: ssh-key
           secret:
-            secretName: migoperator-secret
+            secretName: {{ .Values.sshSecretName }}
+        {{ end }}
