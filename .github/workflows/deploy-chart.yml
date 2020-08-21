@@ -30,4 +30,5 @@ jobs:
           export CH_TOKEN=${{ secrets.GIT_TOKEN }}
           export GIT_REPOSITORY_NAME=k8s-mig-operator
           export GIT_REPOSITORY_URL="https://github.com/riskfuel/k8s-mig-operator"
+          chmod +x .github/release.sh
           .github/release.sh
