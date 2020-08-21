@@ -1,0 +1,40 @@
+name: Deploy helm chart
+on: 
+  push:
+    branches:
+      - master
+    paths:
+    - 'deployments/chart/**'
+    - .github/workflows/deploy-chart.yml
+jobs:
+  deploy-mig-daemon-img:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install tools
+        run: |
+          echo "Installing Helm..."
+          curl -LO "https://kubernetes-helm.storage.googleapis.com/helm-v2.13.1-linux-amd64.tar.gz"
+          sudo mkdir -p "/usr/local/helm-v2.13.1"
+          sudo tar -xzf "helm-v2.13.1-linux-amd64.tar.gz" -C "/usr/local/helm-v2.13.1"
+          sudo ln -s "/usr/local/helm-v2.13.1/linux-amd64/helm" /usr/local/bin/helm
+          rm -f "helm-v2.13.1-linux-amd64.tar.gz"
+          helm init --client-only
+
+          echo "Installing chart-releaser..."
+          curl -LO "https://github.com/helm/chart-releaser/releases/download/v0.1.4/chart-releaser_0.1.4_Linux_x86_64.tar.gz"
+          sudo mkdir -p "/usr/local/chart-releaser-v0.1.4"
+          sudo tar -xzf "chart-releaser_0.1.4_Linux_x86_64.tar.gz" -C "/usr/local/chart-releaser-v0.1.4"
+          sudo ln -s "/usr/local/chart-releaser-v0.1.4/chart-releaser" /usr/local/bin/chart-releaser
+          rm -f "chart-releaser_0.1.4_Linux_x86_64.tar.gz"
+      
+      - name: Release
+        run: |
+          export GIT_USERNAME=riskfuel
+          export GIT_EMAIL=${{ secrets.GIT_EMAIL }}
+          export CH_TOKEN=${{ secrets.GIT_TOKEN }}
+          export GIT_REPOSITORY_NAME=k8s-mig-operator
+          export GIT_REPOSITORY_URL="https://github.com/riskfuel/k8s-mig-operator"
+          .github/release.sh

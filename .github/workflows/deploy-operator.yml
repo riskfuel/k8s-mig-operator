@@ -4,7 +4,9 @@ on:
     branches:
       - master
     paths:
-    - 'roles/**'
+    - 'src/**'
+    - "requirements.txt"
+    - "Dockerfile"
     - '.github/workflows/deploy-operator.yml'
 jobs:
   deploy-mig-daemon-img:
