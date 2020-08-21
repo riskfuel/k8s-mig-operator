@@ -1,29 +1,18 @@
 # Contributing
 
+If this project interests you, feel free to contact us directly via email:
+- addyvan (addison): addison@riskfuel.com
+
 ## Starting the dev environment
 
-**Note**: The dev environment assumes you are working with Ubuntu + docker installed (or a similar unix based system).
+Seeing as access to A100 features isn't widespread, there is no dev environment. Everything is currently being testing on a k8s cluster.
 
-Build and enter the 
-```bash
-make build_shell
-make shell
-```
+## Rollouts
 
-## Building the images
+### Deploying the mig-operator daemonset
 
-### Deploying the python mig daemonset
+* Handled by one of the jobs in `.github/`
 
-```bash
-docker build -t <img>:<tag> -f ./build/Dockerfile.mig .
-```
+### Increasing the version
 
-### Deploying the operator
-
-```bash
-operator-sdk build <img>:<tag>
-```
-
-## Increasing the version
-
-*Need to decide on how this should work.*
+Increasing the version triggers a github release containing the new helm chart, updates the helm index, and builds a new container. It also triggers all future docker container builds to use the new tag. 

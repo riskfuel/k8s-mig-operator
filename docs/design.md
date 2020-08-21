@@ -12,7 +12,7 @@ The operator is responsible for managing the following resources along with thei
 * The node feature discovery daemonset
 * The gpu feature discovery daemonset
 * The nvidia k8s device plugin daemonset
-* The k8s-mig-operator daemonset
+* The mig-operator daemonset
 
 ## MIG instance management
 
