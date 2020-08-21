@@ -19,11 +19,8 @@ jobs:
         run: |
           helm version
           echo "Installing chart-releaser..."
-          curl -LO "https://github.com/helm/chart-releaser/releases/download/v0.2.1/chart-releaser_0.2.1_Linux_x86_64.tar.gz"
-          sudo mkdir -p "/usr/local/chart-releaser-v0.1.4"
-          sudo tar -xzf "chart-releaser_0.2.1_Linux_x86_64.tar.gz" -C "/usr/local/chart-releaser-v0.2.1"
-          sudo ln -s "/usr/local/chart-releaser-v0.2.1/chart-releaser" /usr/local/bin/chart-releaser
-          rm -f "chart-releaser_0.2.1_Linux_x86_64.tar.gz"
+          curl -sSL https://github.com/helm/chart-releaser/releases/download/v0.2.1/chart-releaser_0.2.1_linux_amd64.tar.gz | tar xzf -
+          mv cr /bin/cr
       
       - name: Release
         run: |
