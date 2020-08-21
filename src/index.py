@@ -78,8 +78,9 @@ def sync_loop() -> None:
             check_mig_enabled(i),
             reset
         )
-
-        if len(actions) < 1:
+        if actions == None:
+            pass
+        elif len(actions) < 1:
             now = datetime.now()
             t = now.strftime("%m/%d/%Y, %H:%M:%S")
             log.info(f" {t} gpu{i} synced, no actions required.")
