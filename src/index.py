@@ -52,7 +52,7 @@ def sync_loop() -> None:
     t = now.strftime("%m/%d/%Y, %H:%M:%S")
     log.info(f" {t} Running sync loop...")
 
-    desired_spec = get_operator_spec()
+    desired_spec = get_operator_spec(settings["OPERATOR_NAME"], settings["OPERATOR_NAMESPACE"])
     gpus : dict = get_gpus()
     gpus : dict = get_processes(gpus)
     

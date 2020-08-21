@@ -22,7 +22,16 @@ For nodes in which you wish to enable MIG:
 If you plan to allow the operator to perform resets (currently running a reboot), see the [configuring secure node access docs](./docs/configuring-secure-node-access.md) before continuing.
 
 ```bash
-helm 
+helm repo add k8s-mig-operator https://riskfuel.github.io/k8s-mig-operator/
+helm repo update
+helm install k8s-mig-operator \
+  --set deployNamespace=default \
+  --set dryRun=false \
+  --set allowNodeReset=true \
+  --set sshSecretName=mig-operator-secret \
+  --set deployNvidiaPlugins=true \
+  --set operatorName=example-mig-operator \
+  --set operatorNamespace=default
 ```
 
 ## spec

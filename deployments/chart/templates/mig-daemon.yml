@@ -28,6 +28,12 @@ spec:
         securityContext:
           privileged: true
         env:
+        - name: OPERATOR_NAME
+          value: {{ .Values.operatorName }}
+        - name: OPERATOR_NAMESPACE
+          value: {{ .Values.operatorNamespace }}
+        - name: PYTHONUNBUFFERED
+          value: "0"
         - name: PYTHONUNBUFFERED
           value: "0"
         - name: ALLOW_NODE_RESET

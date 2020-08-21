@@ -5,6 +5,7 @@ on:
       - master
     paths:
     - '.github/workflows/deploy-chart.yml'
+    - 'deployments/chart/**'
     - 'version'
 jobs:
   deploy-mig-daemon-img:

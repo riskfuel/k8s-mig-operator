@@ -3,4 +3,5 @@ dryRun: false
 allowNodeReset: true
 sshSecretName: mig-operator-secret
 deployNvidiaPlugins: true
-
+operatorName: example-mig-operator
+operatorNamespace: kube-system
