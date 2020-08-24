@@ -97,6 +97,11 @@ def sync_loop() -> None:
 
 if __name__ == "__main__":
 
+    if settings["ALLOW_NODE_RESET"]:
+        run_shell_cmd("python3 init_ansible.py")
+        run_shell_cmd("ansible-playbook --become --become-user=root --connection=local ./ansible/init.yml")
+        run_shell_cmd("ansible-playbook --become --become-user=root -i ./ansible/inventory.yml ./ansible/start-gpu-services.yml")
+
     while True:
         sync_loop()
         time.sleep(5)
