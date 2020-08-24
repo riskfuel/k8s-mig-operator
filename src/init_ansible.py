@@ -1,8 +1,9 @@
 import yaml
 import socket
 from handlers import run_shell_cmd
+from settings import settings
 
-def get_vars(operator_name : str = "example-mig-operator-auto", operator_ns : str = "default"):
+def get_vars(operator_name : str, operator_ns : str):
 
     raw : str = run_shell_cmd(f"kubectl -n {operator_ns} get migoperators {operator_name} -o yaml")
     operator_spec : dict = yaml.safe_load(raw)
@@ -16,7 +17,7 @@ def get_vars(operator_name : str = "example-mig-operator-auto", operator_ns : st
 
 if __name__ == "__main__":
 
-    hostname, hostip, remote_user = get_vars()
+    hostname, hostip, remote_user = get_vars(settings["OPERATOR_NAME"], settings["OPERATOR_NAMESPACE"])
 
     # create inventory file
     inventory = {
