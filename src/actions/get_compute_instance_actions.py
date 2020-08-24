@@ -71,7 +71,7 @@ def get_compute_instance_actions(
                             actions.append({
                                 "type": "DELETE_COMP_INSTANCE",
                                 "gpu": gpu,
-                                "gpu_instance_id": gi["instance_id"],
+                                "gpu_instance_id": gpu_instance["instance_id"],
                                 "instance_id": matching_instances.pop()
                             })
 
