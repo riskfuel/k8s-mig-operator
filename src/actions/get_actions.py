@@ -37,7 +37,7 @@ def get_required_actions(
     # if we need to reset the gpus ignore all the other steps
     # they will be done upon pod restart/reset
     if mig_change or reset:
-        return
+        return actions
 
     # 2. Check if gpu instances need to be created / deleted
 
@@ -97,5 +97,5 @@ def get_required_actions(
 
     actions += comp_instance_actions
     actions += gpu_instance_actions
-                
+
     return actions

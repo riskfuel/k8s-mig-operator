@@ -56,6 +56,7 @@ def sync_loop() -> None:
     gpus : dict = get_gpus()
     gpus : dict = get_processes(gpus)
     
+    actions = []
     reset = False
     for gpu_index in gpus:
         i = int(gpu_index)
@@ -68,7 +69,7 @@ def sync_loop() -> None:
         gpu_instances : List[dict] = get_gpu_instances(i)
         comp_instances : List[dict] = get_compute_instances(i)
 
-        actions = get_required_actions(
+        actions += get_required_actions(
             i, 
             desired_spec[f"gpu-{i}"], 
             gpu_instances,
@@ -78,21 +79,19 @@ def sync_loop() -> None:
             check_mig_enabled(i),
             reset
         )
-        if actions == None:
-            reset_gpus()
-        elif len(actions) < 1:
-            now = datetime.now()
-            t = now.strftime("%m/%d/%Y, %H:%M:%S")
-            log.info(f" {t} gpu{i} synced, no actions required.")
-
-        if not dry_run and actions:
-            if perform_actions(actions):
+        for action in actions:
+            if action["type"] == "TOGGLE_MIG":
                 reset = True
-        else:
-            print("DRY_RUN enabled, not performing actions.")
+    
+    log.info("\n ACTIONS \n")
+    for action in actions:
+        log.info(f" {action} ")
 
-    # if reset:
-        # reset_gpus()
+    if not dry_run:
+        perform_actions(actions)
+
+        if reset:
+            reset_gpus()
 
 
 if __name__ == "__main__":

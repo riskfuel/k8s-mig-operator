@@ -9,7 +9,6 @@ RUN apt update && \
     chmod +x ./kubectl && \
     mv ./kubectl /usr/local/bin/kubectl
 
-
 # Install prerequisities for Ansible
 RUN apt-get update
 RUN apt-get -y install python3 python3-nacl python3-pip libffi-dev ssh
