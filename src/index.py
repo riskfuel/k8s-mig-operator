@@ -91,8 +91,8 @@ def sync_loop() -> None:
         else:
             print("DRY_RUN enabled, not performing actions.")
 
-    if reset:
-        reset_gpus()
+    # if reset:
+        # reset_gpus()
 
 
 if __name__ == "__main__":
