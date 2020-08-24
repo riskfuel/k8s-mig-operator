@@ -18,6 +18,5 @@ COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
 COPY src /home/app_user/app
-RUN chmod +x startup.sh
 
 CMD ["python3", "index.py"]
