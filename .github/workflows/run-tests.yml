@@ -32,5 +32,8 @@ jobs:
           DOCKER_IMAGE=riskfuel/k8s-mig-operator:$version
           docker pull $DOCKER_IMAGE
 
+      - name: Build image
+        run: docker-compose build shell
+
       - name: Run tests
         run: docker-compose run test
