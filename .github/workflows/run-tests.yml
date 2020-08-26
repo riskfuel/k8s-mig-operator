@@ -33,5 +33,4 @@ jobs:
           docker pull $DOCKER_IMAGE
 
       - name: Run tests
-        working-directory: factory
         run: docker-compose run test
