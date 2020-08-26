@@ -1,0 +1,19 @@
+version: '3.5'
+
+services:
+
+  shell: &basic
+    container_name: mig-operator-ci-shell
+    image: mig-operator-ci-shell
+    build:
+      context: .
+    working_dir: /home/app_user/app
+    volumes:
+      - .:/home/app_user/app
+    entrypoint: bash
+    stdin_open: true
+    tty: true
+
+  test:  &test
+    <<: *basic
+    entrypoint: ["pytest", "-vv", "tests/"]
