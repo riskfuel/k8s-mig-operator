@@ -1,19 +1,15 @@
-.PHONY: build_shell
-build_shell:
-	docker build \
-        --tag ansible-operator-shell \
-        --file ./Dockerfile.dev \
-        .
-
 .PHONY: shell
 shell:
-	docker run -it \
-	-w /home/app_user/app \
-	-v ${PWD}:/home/app_user/app \
-	-v ${PWD}:/home/app_user/app \
-	-v /var/run/docker.sock:/var/run/docker.sock \
-	--name ansible-operator-shell \
-	--rm ansible-operator-shell
+	docker-compose run shell
+
+.PHONY: build
+build:
+	docker-compose build shell
+
+.PHONY: test
+test:
+	@echo "==> Running Main Tests\n"
+	docker-compose run test
 
 .PHONY: deploy
 deploy:

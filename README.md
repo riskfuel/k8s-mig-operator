@@ -57,22 +57,67 @@ metadata:
 spec:
   nodes:
     # hostname of node
-    - hostname: dl13
+    nodehostname:
+
+      remote_user: remote-user
+
+      # if not specified, features like toggling mig
+      # or switching strategies wont be available
+      secretName: migoperator-secret
+
+      # Options for MIG instance profiles: 7g.40gb, 4g.20gb, 3g.20gb, 2g.10gb, 1g.5gb
+      # Options for compute instance profiles: 7g.40gb, 4c.xg.ygb, 3c.xg.ygb, 2c.xg.ygb, 1c.xg.ygb
+      # NOTE: nvidia-device-plugin does not support non default compute sizes, however
+      #       we still currently support creating these instances. 
       devices:
-      - id: 0
-        gpu_instances:
-          # Options: 7g.40gb, 4g.20gb, 3g.20gb, 2g.10gb, 1g.5gb
-          - gpu_instance_profile: 3g.20gb
-            compute_instances:
-            - 1c.3g.20gb
-            - 2c.3g.20gb
-          - gpu_instance_profile: 2g.10gb
-            compute_instances:
-            - 2c.2g.10gb
-          - gpu_instance_profile: 1g.5gb
-            compute_instances:
-            - 1c.1g.5gb
-      ...
+      - gpu: 0
+        migEnabled: True
+        gpuInstances:
+        - profile: 7g.40gb
+          computeInstances:
+          - 7g.40gb
+      - gpu: 1
+        migEnabled: True
+        gpuInstances:
+        - profile: 7g.40gb
+          computeInstances:
+          - 7g.40gb
+      - gpu: 2
+        migEnabled: True
+        gpuInstances:
+        - profile: 7g.40gb
+          computeInstances:
+          - 7g.40gb
+      - gpu: 3
+        migEnabled: True
+        gpuInstances:
+        - profile: 7g.40gb
+          computeInstances:
+          - 7g.40gb
+      - gpu: 4
+        migEnabled: True
+        gpuInstances:
+        - profile: 7g.40gb
+          computeInstances:
+          - 7g.40gb
+      - gpu: 5
+        migEnabled: True
+        gpuInstances:
+        - profile: 7g.40gb
+          computeInstances:
+          - 7g.40gb
+      - gpu: 6
+        migEnabled: True
+        gpuInstances:
+        - profile: 7g.40gb
+          computeInstances:
+          - 7g.40gb
+      - gpu: 7
+        migEnabled: True
+        gpuInstances:
+        - profile: 7g.40gb
+          computeInstances:
+          - 7g.40gb
 ```
 
 ## Capabilities

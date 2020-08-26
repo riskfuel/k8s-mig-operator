@@ -1,14 +1,14 @@
 apiVersion: operators.riskfuel.com/v1alpha1
 kind: MigOperator
 metadata:
-  name: example-mig-operator
-  namespace: default # set to namespace specified when installing
+  name: test-case-1
+  namespace: default
 spec:
   nodes:
     # hostname of node
-    <hostname>:
+    nodehostname:
 
-      remote_user: <your-user-name>
+      remote_user: remote-user
 
       # if not specified, features like toggling mig
       # or switching strategies wont be available
@@ -20,48 +20,64 @@ spec:
       devices:
       - gpu: 0
         migEnabled: True
+        # Options: 7g.40gb, 4g.20gb, 3g.20gb, 2g.10gb, 1g.5gb
+        # Test multiple CI single GI
         gpuInstances:
         - profile: 7g.40gb
           computeInstances:
           - 7g.40gb
       - gpu: 1
         migEnabled: True
+        # Options: 7g.40gb, 4g.20gb, 3g.20gb, 2g.10gb, 1g.5gb
+        # Test multiple CI single GI
         gpuInstances:
         - profile: 7g.40gb
           computeInstances:
           - 7g.40gb
       - gpu: 2
         migEnabled: True
+        # Options: 7g.40gb, 4g.20gb, 3g.20gb, 2g.10gb, 1g.5gb
+        # Test multiple CI single GI
         gpuInstances:
         - profile: 7g.40gb
           computeInstances:
           - 7g.40gb
       - gpu: 3
         migEnabled: True
+        # Options: 7g.40gb, 4g.20gb, 3g.20gb, 2g.10gb, 1g.5gb
+        # Test multiple CI single GI
         gpuInstances:
         - profile: 7g.40gb
           computeInstances:
           - 7g.40gb
       - gpu: 4
         migEnabled: True
+        # Options: 7g.40gb, 4g.20gb, 3g.20gb, 2g.10gb, 1g.5gb
+        # Test multiple CI single GI
         gpuInstances:
         - profile: 7g.40gb
           computeInstances:
           - 7g.40gb
       - gpu: 5
         migEnabled: True
+        # Options: 7g.40gb, 4g.20gb, 3g.20gb, 2g.10gb, 1g.5gb
+        # Test multiple CI single GI
         gpuInstances:
         - profile: 7g.40gb
           computeInstances:
           - 7g.40gb
       - gpu: 6
         migEnabled: True
+        # Options: 7g.40gb, 4g.20gb, 3g.20gb, 2g.10gb, 1g.5gb
+        # Test multiple CI single GI
         gpuInstances:
         - profile: 7g.40gb
           computeInstances:
           - 7g.40gb
       - gpu: 7
         migEnabled: True
+        # Options: 7g.40gb, 4g.20gb, 3g.20gb, 2g.10gb, 1g.5gb
+        # Test multiple CI single GI
         gpuInstances:
         - profile: 7g.40gb
           computeInstances:
