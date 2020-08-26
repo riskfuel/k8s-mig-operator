@@ -25,15 +25,22 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
-      
-      - name: Pull image
+
+      - name: Build image
         run: |
           version=$(cat version)
           DOCKER_IMAGE=riskfuel/k8s-mig-operator:$version
-          docker pull $DOCKER_IMAGE
-
-      - name: Build image
-        run: docker-compose build shell
+          docker buildx build \
+            --cache-from "type=local,src=/tmp/.buildx-cache" \
+            --cache-to "type=local,dest=/tmp/.buildx-cache" \
+            --platform linux/amd64 \
+            --tag ${DOCKER_IMAGE} \
+            --output "type=docker" \
+            .
 
       - name: Run tests
-        run: docker-compose run test
+        run: |
+          version=$(cat version)
+          DOCKER_IMAGE=riskfuel/k8s-mig-operator:$version
+          docker tag ${DOCKER_IMAGE} mig-operator-ci-shell
+          docker-compose run test
