@@ -1,4 +1,4 @@
-name: edi test suite
+name: run test suite
 on: 
   push:
     paths:
